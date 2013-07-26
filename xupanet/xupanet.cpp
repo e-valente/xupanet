@@ -25,12 +25,14 @@ void XupaNet::on_pushButton_clicked()
 
 
 
+    /*antigo*/
     //QString strurl = ui->urlField->text();
     //QUrl myurl(strurl);
+
     QString strurl("file://" + qApp->applicationDirPath() + "/youtubevideo.html");
     QUrl myurl(strurl);
     ui->webView->load(myurl);
     ui->webView->show();
 
-    qDebug() << "App path : " << strurl;
+    //() << "App path : " << strurl;
 }
