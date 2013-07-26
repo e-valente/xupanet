@@ -3,6 +3,7 @@
 
 #include <QUrl>
 #include <QtNetwork/QNetworkProxy>
+#include <QWebSettings>
 
 XupaNet::XupaNet(QWidget *parent) :
     QMainWindow(parent),
@@ -22,8 +23,14 @@ void XupaNet::on_pushButton_clicked()
     QNetworkProxy proxy(QNetworkProxy::HttpProxy, "95.87.239.115", 8080);
     QNetworkProxy::setApplicationProxy(proxy);
 
-    QString strurl = ui->urlField->text();
+
+
+    //QString strurl = ui->urlField->text();
+    //QUrl myurl(strurl);
+    QString strurl("file://" + qApp->applicationDirPath() + "/youtubevideo.html");
     QUrl myurl(strurl);
     ui->webView->load(myurl);
     ui->webView->show();
+
+    qDebug() << "App path : " << strurl;
 }
