@@ -51,7 +51,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>ex: http://www.youtube.com/watch?v=YruIJwx3AY8)</string>
+     <string>ie: http://www.youtube.com/watch?v=YruIJwx3AY8)</string>
     </property>
    </widget>
    <widget class="QWidget" name="layoutWidget">
@@ -73,7 +73,7 @@
         </font>
        </property>
        <property name="text">
-        <string>URL do vídeo:</string>
+        <string>URL:</string>
        </property>
       </widget>
      </item>
@@ -83,7 +83,10 @@
      <item>
       <widget class="QPushButton" name="pushButton">
        <property name="text">
-        <string>Ir!</string>
+        <string>&amp;Go!</string>
+       </property>
+       <property name="autoDefault">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -101,16 +104,31 @@
    </property>
    <widget class="QMenu" name="menuArquivo">
     <property name="title">
-     <string>Arquivo</string>
+     <string>File</string>
     </property>
    </widget>
    <widget class="QMenu" name="menuSobre">
     <property name="title">
-     <string>Sobre</string>
+     <string>About</string>
+    </property>
+    <addaction name="actionAbout_Qt"/>
+    <addaction name="actionXupaNet"/>
+   </widget>
+   <widget class="QMenu" name="menuTools">
+    <property name="title">
+     <string>Tools</string>
+    </property>
+    <addaction name="actionProxy_List"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
     </property>
    </widget>
    <addaction name="menuArquivo"/>
+   <addaction name="menuTools"/>
    <addaction name="menuSobre"/>
+   <addaction name="menuHelp"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -121,6 +139,21 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionAbout_Qt">
+   <property name="text">
+    <string>Qt</string>
+   </property>
+  </action>
+  <action name="actionXupaNet">
+   <property name="text">
+    <string>XupaNet</string>
+   </property>
+  </action>
+  <action name="actionProxy_List">
+   <property name="text">
+    <string>Proxy List</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
