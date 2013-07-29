@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QShortcut>
 #include "youtubeurlhandler.h"
+#include "videorender.h"
 
 namespace Ui {
 class XupaNet;
@@ -15,6 +16,8 @@ class XupaNet : public QMainWindow
     
 private:
     QShortcut *shortcut;
+    VideoRender *videorender;
+
 public:
     explicit XupaNet(QWidget *parent = 0);
      explicit XupaNet(QString &str);

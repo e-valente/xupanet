@@ -1,6 +1,7 @@
 #include "xupanet.h"
 #include "ui_xupanet.h"
 #include "youtubeurlhandler.h"
+#include "videorender.h"
 
 #include <QUrl>
 #include <QtNetwork/QNetworkProxy>
@@ -8,6 +9,8 @@
 #include <QMessageBox>
 #include <QShortcut>
 #include <QKeySequence>
+#include <QThread>
+
 XupaNet::XupaNet(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::XupaNet)
@@ -21,6 +24,7 @@ XupaNet::XupaNet(QWidget *parent) :
 XupaNet::~XupaNet()
 {
     delete shortcut;
+    delete videorender;
     delete ui;
 }
 
@@ -46,6 +50,25 @@ void XupaNet::on_pushButton_clicked()
         QUrl myurl(strurl);
         ui->webView->load(myurl);
         ui->webView->show();
+
+        /*colocando na thread*/
+        QThread *thread = new QThread;
+
+        videorender = new VideoRender();
+        videorender->moveToThread(thread);
+        //conectar aqui uma msg de erro `a thread
+
+        //faz bind() com a thread +  nosso metodo
+        connect(thread, SIGNAL(started()), videorender, SLOT(process()));
+
+        //conecta o sinal finished pra sair da thread
+        connect(videorender, SIGNAL(finished()), thread, SLOT(quit()));
+
+        connect(videorender, SIGNAL(finished()), videorender, SLOT(deleteLater()));
+        connect(videorender, SIGNAL(finished()), thread, SLOT(deleteLater()));
+
+        thread->start();
+
     }
 
     delete urlhandler;
