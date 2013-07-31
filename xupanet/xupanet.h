@@ -32,6 +32,8 @@ private slots:
     /*duvidas com as threads?
      *http://mayaposch.wordpress.com/2011/11/01/how-to-really-truly-use-qthreads-the-full-explanation/
      */
+
+    //metodo executado em outra thread
     void renderVideo();
 
 signals:

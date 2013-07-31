@@ -38,7 +38,7 @@ int YouTubeUrlHandler::makeHtmlFile()
 
     QString htmlContent_after =   "type=\"application/x-shockwave-flash\""
             "wmode=\"transparent\" width=\"1000\" height=\"450\" />"
-            "</object> </body> </html>";
+            "</object> </body> </html> ";
 
     QFile file("youtubevideo.html");
     file.open(QIODevice::WriteOnly);

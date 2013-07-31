@@ -18,7 +18,7 @@ XupaNet::XupaNet(QWidget *parent) :
 
     /*bug do QT: se deixar os plugins
      *habilitados teremos segmentation fault qdo tiver
-     *video carregado e tentarmos clicar dentro da janela (ex: menu)
+     *video carregado (ou nao) e tentarmos clicar dentro da janela (ex: menu)
      */
 
     ui->webView->settings()->setAttribute(QWebSettings::PluginsEnabled, true);
