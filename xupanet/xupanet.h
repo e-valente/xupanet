@@ -3,8 +3,8 @@
 
 #include <QMainWindow>
 #include <QShortcut>
+#include <QWebSettings>
 #include "youtubeurlhandler.h"
-#include "videorender.h"
 
 namespace Ui {
 class XupaNet;
@@ -16,11 +16,10 @@ class XupaNet : public QMainWindow
     
 private:
     QShortcut *shortcut;
-    VideoRender *videorender;
 
 public:
     explicit XupaNet(QWidget *parent = 0);
-     explicit XupaNet(QString &str);
+    explicit XupaNet(QString &str);
     ~XupaNet();
 
     YouTubeUrlHandler *urlhandler;
@@ -29,6 +28,14 @@ private slots:
     void on_pushButton_clicked();
 
     void on_actionAbout_Qt_triggered();
+
+    /*duvidas com as threads?
+     *http://mayaposch.wordpress.com/2011/11/01/how-to-really-truly-use-qthreads-the-full-explanation/
+     */
+    void renderVideo();
+
+signals:
+    void renderVideoFinished();
 
 private:
     Ui::XupaNet *ui;

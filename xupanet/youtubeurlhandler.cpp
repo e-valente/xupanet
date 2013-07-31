@@ -22,17 +22,17 @@ int YouTubeUrlHandler::makeUrl()
     // qDebug() << "url list:" << mystrl_list.at(0);
     qDebug() << "url list:" << mystrl_list;
 
-     if(!mystrl_list.at(0).contains(QRegExp("youtube.com")))
+    if(!mystrl_list.at(0).contains(QRegExp("youtube.com")))
         return 0;
 
-     else return 1;
+    else return 1;
 }
 
 int YouTubeUrlHandler::makeHtmlFile()
 {
     QString htmlContent_before = "<html><head><title>vai..</title></head> <body> indo...<br><br>"
-       "<object width=\"1000\" height=\"450\"> <param name=\"movie\" value=\"https://youtube.googleapis.com/v/Ly89ntuVr9U\" />"
-       "<param name=\"wmode\" value=\"transparent\" />";
+            "<object width=\"1000\" height=\"450\"> <param name=\"movie\" value=\"https://youtube.googleapis.com/v/Ly89ntuVr9U\" />"
+            "<param name=\"wmode\" value=\"transparent\" />";
 
     QString htmlContent_Video = "<embed src=\"https://youtube.googleapis.com/v/" + mystrl_list.at(1) + "\"";
 

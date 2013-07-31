@@ -1,7 +1,6 @@
 #include "xupanet.h"
 #include "ui_xupanet.h"
 #include "youtubeurlhandler.h"
-#include "videorender.h"
 
 #include <QUrl>
 #include <QtNetwork/QNetworkProxy>
@@ -16,7 +15,14 @@ XupaNet::XupaNet(QWidget *parent) :
     ui(new Ui::XupaNet)
 {
     ui->setupUi(this);
+
+    /*bug do QT: se deixar os plugins
+     *habilitados teremos segmentation fault qdo tiver
+     *video carregado e tentarmos clicar dentro da janela (ex: menu)
+     */
+
     ui->webView->settings()->setAttribute(QWebSettings::PluginsEnabled, true);
+
     shortcut = new QShortcut(QKeySequence(Qt::Key_Return), this);
     connect(shortcut, SIGNAL(activated()), this, SLOT(on_pushButton_clicked()));
 }
@@ -24,7 +30,6 @@ XupaNet::XupaNet(QWidget *parent) :
 XupaNet::~XupaNet()
 {
     delete shortcut;
-    delete videorender;
     delete ui;
 }
 
@@ -34,8 +39,9 @@ void XupaNet::on_pushButton_clicked()
     //QNetworkProxy::setApplicationProxy(proxy);
 
 
+
     QString str = ui->urlField->text();
-    //QUrl myurl(strurl);
+
     urlhandler = new YouTubeUrlHandler(str);
     if(!urlhandler->makeUrl())
     {
@@ -45,27 +51,26 @@ void XupaNet::on_pushButton_clicked()
         msgbox.exec();
     }
     else{
+
+
         urlhandler->makeHtmlFile();
-        QString strurl("file://" + qApp->applicationDirPath() + "/youtubevideo.html");
-        QUrl myurl(strurl);
-        ui->webView->load(myurl);
-        ui->webView->show();
 
         /*colocando na thread*/
         QThread *thread = new QThread;
 
-        videorender = new VideoRender();
-        videorender->moveToThread(thread);
-        //conectar aqui uma msg de erro `a thread
+
 
         //faz bind() com a thread +  nosso metodo
-        connect(thread, SIGNAL(started()), videorender, SLOT(process()));
+
+
+        //this->moveToThread(thread);
+        connect(thread, SIGNAL(started()), this, SLOT(renderVideo()));
 
         //conecta o sinal finished pra sair da thread
-        connect(videorender, SIGNAL(finished()), thread, SLOT(quit()));
+        connect(this, SIGNAL(renderVideoFinished()), thread, SLOT(quit()));
 
-        connect(videorender, SIGNAL(finished()), videorender, SLOT(deleteLater()));
-        connect(videorender, SIGNAL(finished()), thread, SLOT(deleteLater()));
+        // connect(this, SIGNAL(renderVideoFinished()), this, SLOT(deleteLater()));
+        //connect(this, SIGNAL(renderVideoFinished()), thread, SLOT(deleteLater()));
 
         thread->start();
 
@@ -73,8 +78,17 @@ void XupaNet::on_pushButton_clicked()
 
     delete urlhandler;
 
+}
 
-    //() << "App path : " << strurl;
+void XupaNet::renderVideo()
+{
+
+    QString strurl("file://" + qApp->applicationDirPath() + "/youtubevideo.html");
+    QUrl myurl(strurl);
+    ui->webView->load(myurl);
+    ui->webView->show();
+    emit renderVideoFinished();
+
 }
 
 void XupaNet::on_actionAbout_Qt_triggered()

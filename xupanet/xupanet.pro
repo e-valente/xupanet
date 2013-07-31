@@ -14,11 +14,9 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         xupanet.cpp \
-    youtubeurlhandler.cpp \
-    videorender.cpp
+    youtubeurlhandler.cpp
 
 HEADERS  += xupanet.h \
-    youtubeurlhandler.h \
-    videorender.h
+    youtubeurlhandler.h
 
 FORMS    += xupanet.ui
