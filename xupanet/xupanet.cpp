@@ -10,6 +10,8 @@
 #include <QKeySequence>
 #include <QThread>
 
+#include <string>
+
 XupaNet::XupaNet(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::XupaNet)
@@ -33,12 +35,18 @@ XupaNet::~XupaNet()
     delete ui;
 }
 
+QString XupaNet::get_proxy_ws()
+{
+    QString ws_url = "localhost";
+
+    // TODO
+    return NULL;
+}
+
 void XupaNet::on_pushButton_clicked()
 {
     //QNetworkProxy proxy(QNetworkProxy::HttpProxy, "95.87.239.115", 8080);
     //QNetworkProxy::setApplicationProxy(proxy);
-
-
 
     QString str = ui->urlField->text();
 
