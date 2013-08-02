@@ -6,8 +6,10 @@
 #include <QWebSettings>
 #include "youtubeurlhandler.h"
 
+#include <string>
+
 namespace Ui {
-class XupaNet;
+    class XupaNet;
 }
 
 class XupaNet : public QMainWindow
@@ -23,6 +25,8 @@ public:
     ~XupaNet();
 
     YouTubeUrlHandler *urlhandler;
+
+    QString get_proxy_ws();
     
 private slots:
     void on_pushButton_clicked();
