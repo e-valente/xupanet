@@ -5,6 +5,7 @@
 #include <QShortcut>
 #include <QWebSettings>
 #include "youtubeurlhandler.h"
+#include "proxylist.h"
 
 #include <string>
 
@@ -18,6 +19,8 @@ class XupaNet : public QMainWindow
     
 private:
     QShortcut *shortcut;
+    ProxyList *proxylist;
+
 
 public:
     explicit XupaNet(QWidget *parent = 0);
@@ -39,6 +42,10 @@ private slots:
 
     //metodo executado em outra thread
     void renderVideo();
+
+    void on_action_Exit_triggered();
+
+    void on_actionProxy_List_triggered();
 
 signals:
     void renderVideoFinished();

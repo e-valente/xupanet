@@ -106,6 +106,7 @@
     <property name="title">
      <string>File</string>
     </property>
+    <addaction name="action_Exit"/>
    </widget>
    <widget class="QMenu" name="menuSobre">
     <property name="title">
@@ -118,12 +119,15 @@
     <property name="title">
      <string>Tools</string>
     </property>
+    <addaction name="separator"/>
     <addaction name="actionProxy_List"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
      <string>Help</string>
     </property>
+    <addaction name="actionContent"/>
+    <addaction name="actionIndex"/>
    </widget>
    <addaction name="menuArquivo"/>
    <addaction name="menuTools"/>
@@ -152,6 +156,21 @@
   <action name="actionProxy_List">
    <property name="text">
     <string>Proxy List</string>
+   </property>
+  </action>
+  <action name="action_Exit">
+   <property name="text">
+    <string>&amp;Exit</string>
+   </property>
+  </action>
+  <action name="actionContent">
+   <property name="text">
+    <string>Content</string>
+   </property>
+  </action>
+  <action name="actionIndex">
+   <property name="text">
+    <string>Index</string>
    </property>
   </action>
  </widget>

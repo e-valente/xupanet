@@ -45,8 +45,8 @@ QString XupaNet::get_proxy_ws()
 
 void XupaNet::on_pushButton_clicked()
 {
-    //QNetworkProxy proxy(QNetworkProxy::HttpProxy, "95.87.239.115", 8080);
-    //QNetworkProxy::setApplicationProxy(proxy);
+    QNetworkProxy proxy(QNetworkProxy::HttpProxy, "95.87.239.115", 8080);
+    QNetworkProxy::setApplicationProxy(proxy);
 
     QString str = ui->urlField->text();
 
@@ -102,4 +102,15 @@ void XupaNet::renderVideo()
 void XupaNet::on_actionAbout_Qt_triggered()
 {
     qApp->aboutQt();
+}
+
+void XupaNet::on_action_Exit_triggered()
+{
+    qApp->closeAllWindows();
+}
+
+void XupaNet::on_actionProxy_List_triggered()
+{
+    proxylist = new ProxyList();
+    proxylist->show();
 }

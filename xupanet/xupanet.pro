@@ -14,9 +14,12 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         xupanet.cpp \
-    youtubeurlhandler.cpp
+    youtubeurlhandler.cpp \
+    proxylist.cpp
 
 HEADERS  += xupanet.h \
-    youtubeurlhandler.h
+    youtubeurlhandler.h \
+    proxylist.h
 
-FORMS    += xupanet.ui
+FORMS    += xupanet.ui \
+    proxylist.ui
