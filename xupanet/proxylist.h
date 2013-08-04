@@ -16,9 +16,10 @@ public:
     ~ProxyList();
     
 private slots:
-    void on_pushButton_2_clicked();
 
     void on_pushButtonSetDefaultProxies_clicked();
+
+    void on_pushButtonSynchronizeProxies_clicked();
 
 private:
     Ui::ProxyList *ui;

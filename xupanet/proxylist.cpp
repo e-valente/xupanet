@@ -32,3 +32,13 @@ void ProxyList::on_pushButtonSetDefaultProxies_clicked()
     ui->lineEditPort5->setText("3128");
 
 }
+
+
+
+void ProxyList::on_pushButtonSynchronizeProxies_clicked()
+{
+    //TODO
+    //sync with our webservice
+    //and update lineEdits
+
+}
