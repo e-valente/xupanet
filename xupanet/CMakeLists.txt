@@ -1,7 +1,7 @@
 #Emanuel Valente - emanuelvalente@gmail.com
 cmake_minimum_required(VERSION 2.8.11)
 
-project(testproject)
+project(xupanet)
 
 # Find includes in corresponding build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -19,8 +19,9 @@ QT5_WRAP_UI(UIS_HDRS
     proxylist.ui
 )
 
-# Tell CMake to create the helloworld executable
+# Tell CMake to create the xupanet executable
 add_executable(xupanet main.cpp xupanet.cpp proxylist.cpp youtubeurlhandler.cpp ${UIS_HDRS})
 
 # Use the Widgets module from Qt 5.
 target_link_libraries(xupanet Qt5::Widgets Qt5::WebKitWidgets)
+
