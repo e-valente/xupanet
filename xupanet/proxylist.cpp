@@ -1,6 +1,30 @@
 #include "proxylist.h"
 #include "ui_proxylist.h"
 
+#include <QDebug>
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkRequest>
+#include <QtNetwork/QNetworkReply>
+#include <QIODevice>
+#include <QUrl>
+#include <QString>
+#include <QStringList>
+
+
+void WSConsumer::onFinished()
+{
+        qDebug() << "FOOBAR";
+        QStringList list;
+        QIODevice * content = static_cast<QIODevice*>(QObject::sender());
+        QString response = content->readAll();
+        response = response.split(QRegExp("</*html>"))[1];
+        list = response.split(QRegExp(":"));
+        
+        this->ip_addr =  list[0];
+        this->port_addr = list[1].remove('\n'); 
+        content->deleteLater();
+}
+
 ProxyList::ProxyList(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ProxyList)
@@ -12,7 +36,6 @@ ProxyList::~ProxyList()
 {
     delete ui;
 }
-
 
 void ProxyList::on_pushButtonSetDefaultProxies_clicked()
 {
@@ -30,15 +53,23 @@ void ProxyList::on_pushButtonSetDefaultProxies_clicked()
 
     ui->lineEditProxy5->setText("177.206.131.63");
     ui->lineEditPort5->setText("3128");
-
 }
-
 
 
 void ProxyList::on_pushButtonSynchronizeProxies_clicked()
 {
     //TODO
-    //sync with our webservice
-    //and update lineEdits
+    //-> sync with our webservice [ok]
+    //-> and update lineEdits     [  ]
 
+    QNetworkAccessManager nam;
+    WSConsumer obj;
+    QNetworkReply * reply = nam.get(
+            QNetworkRequest(QUrl("http://localhost:8080/proxy"))
+    );
+
+    QObject::connect(reply, SIGNAL(finished()), &obj, SLOT(onFinished()));
+    
+    qDebug() << obj.ip_addr;
+    qDebug() << obj.port_addr;
 }

@@ -4,8 +4,21 @@
 #include <QWidget>
 
 namespace Ui {
-class ProxyList;
+    class ProxyList;
+    class WSConsumer;
 }
+
+class WSConsumer : public QObject
+{
+    Q_OBJECT
+
+public:
+    QString ip_addr;
+    QString port_addr;
+    
+public slots:
+    void onFinished();
+};
 
 class ProxyList : public QWidget
 {
