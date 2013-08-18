@@ -13,9 +13,13 @@ class WSConsumer : public QObject
     Q_OBJECT
 
 public:
+
+    WSConsumer(QObject *parent = 0);
+    ~WSConsumer();
+
     QString ip_addr;
-    QString port_addr;
-    
+    QString port_addr; 
+
 public slots:
     void onFinished();
 };
@@ -29,13 +33,15 @@ public:
     ~ProxyList();
     
 private slots:
-
+    
     void on_pushButtonSetDefaultProxies_clicked();
-
     void on_pushButtonSynchronizeProxies_clicked();
 
 private:
-    Ui::ProxyList *ui;
+    
+    WSConsumer* ws_obj;
+    Ui::ProxyList* ui;
+
 };
 
 #endif // PROXYLIST_H

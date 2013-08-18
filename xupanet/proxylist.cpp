@@ -25,15 +25,27 @@ void WSConsumer::onFinished()
         content->deleteLater();
 }
 
+WSConsumer::WSConsumer(QObject *parent)
+{
+    qDebug() << "WSC:LIVE";
+}
+
+WSConsumer::~WSConsumer()
+{
+    qDebug() << "WSC:DEAD";
+}
+
 ProxyList::ProxyList(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ProxyList)
 {
     ui->setupUi(this);
+    this->ws_obj = new WSConsumer();
 }
 
 ProxyList::~ProxyList()
 {
+    delete ws_obj;
     delete ui;
 }
 
@@ -63,13 +75,12 @@ void ProxyList::on_pushButtonSynchronizeProxies_clicked()
     //-> and update lineEdits     [  ]
 
     QNetworkAccessManager nam;
-    WSConsumer obj;
     QNetworkReply * reply = nam.get(
             QNetworkRequest(QUrl("http://localhost:8080/proxy"))
     );
 
-    QObject::connect(reply, SIGNAL(finished()), &obj, SLOT(onFinished()));
+    QObject::connect(reply, SIGNAL(finished()), this->ws_obj, SLOT(onFinished()));
     
-    qDebug() << obj.ip_addr;
-    qDebug() << obj.port_addr;
+    qDebug() << this->ws_obj->ip_addr;
+    qDebug() << this->ws_obj->port_addr;
 }
