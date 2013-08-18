@@ -1,6 +1,7 @@
 #ifndef PROXYLIST_H
 #define PROXYLIST_H
 
+#include <QtNetwork/QNetworkAccessManager>
 #include <QWidget>
 
 namespace Ui {
@@ -17,6 +18,7 @@ public:
     WSConsumer(QObject *parent = 0);
     ~WSConsumer();
 
+    QNetworkAccessManager nam;
     QString ip_addr;
     QString port_addr; 
 

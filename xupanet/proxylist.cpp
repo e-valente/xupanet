@@ -2,7 +2,7 @@
 #include "ui_proxylist.h"
 
 #include <QDebug>
-#include <QtNetwork/QNetworkAccessManager>
+//#include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkRequest>
 #include <QtNetwork/QNetworkReply>
 #include <QIODevice>
@@ -13,26 +13,32 @@
 
 void WSConsumer::onFinished()
 {
-        qDebug() << "FOOBAR";
+        //qDebug() << "IN";
         QStringList list;
         QIODevice * content = static_cast<QIODevice*>(QObject::sender());
         QString response = content->readAll();
+        //qDebug() << response;
         response = response.split(QRegExp("</*html>"))[1];
         list = response.split(QRegExp(":"));
         
         this->ip_addr =  list[0];
-        this->port_addr = list[1].remove('\n'); 
+        this->port_addr = list[1].remove('\n');
+ 
+        qDebug() << this->ip_addr;
+        qDebug() << this->port_addr;
+
         content->deleteLater();
+        //qDebug() << "OUT";
 }
 
 WSConsumer::WSConsumer(QObject *parent)
 {
-    qDebug() << "WSC:LIVE";
+    qDebug() << "WSC:LIVE"; // DEBUG
 }
 
 WSConsumer::~WSConsumer()
 {
-    qDebug() << "WSC:DEAD";
+    qDebug() << "WSC:DEAD"; // DEBUG
 }
 
 ProxyList::ProxyList(QWidget *parent) :
@@ -74,13 +80,14 @@ void ProxyList::on_pushButtonSynchronizeProxies_clicked()
     //-> sync with our webservice [ok]
     //-> and update lineEdits     [  ]
 
-    QNetworkAccessManager nam;
-    QNetworkReply * reply = nam.get(
+    QNetworkReply * reply =  this->ws_obj->nam.get(
             QNetworkRequest(QUrl("http://localhost:8080/proxy"))
     );
 
-    QObject::connect(reply, SIGNAL(finished()), this->ws_obj, SLOT(onFinished()));
-    
-    qDebug() << this->ws_obj->ip_addr;
-    qDebug() << this->ws_obj->port_addr;
+    QObject::connect(
+        reply,
+        SIGNAL(finished()),
+        this->ws_obj,
+        SLOT(onFinished())
+    );    
 }
