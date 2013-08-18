@@ -18,8 +18,9 @@ int main(int argc, char *argv[])
 
    // qDebug() <<"dimensoes: altura: " << screenHeight << "largura: " << screenWidth;
 
-    w = 1200;
-    h = 1000;
+    // Para nao ficar uma janela grande e tosca
+    w = 1000;
+    h = 700;
 
     y = (screenHeight - h)/2;
     x = (screenWidth - w) /2;
