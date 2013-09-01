@@ -7,6 +7,8 @@
 #include "youtubeurlhandler.h"
 #include "proxylist.h"
 
+#include <QString>
+#include <QStringList>
 #include <string>
 
 namespace Ui {
